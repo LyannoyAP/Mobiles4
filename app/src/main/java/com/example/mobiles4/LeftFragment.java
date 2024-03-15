@@ -28,8 +28,16 @@ public class LeftFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.listView);
         List<Item> list = new ArrayList<>();
-        for (int i = 0; i < 200; i++) {
-            list.add(new Item(0));
+        Bundle bundle = getArguments();
+        if ((bundle != null) && bundle.containsKey("qCount")) {
+            for (int i = 0; i < bundle.getInt("qCount"); i++) {
+                list.add(new Item(0));
+            }
+        }
+        else {
+            for (int i = 0; i < 200; i++) {
+                list.add(new Item(0));
+            }
         }
         ListViewAdapter adapter = new ListViewAdapter(
                 getContext(),

@@ -25,8 +25,16 @@ public class RightFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
         List<Item> list = new ArrayList<>();
-        for (int i = 0; i < 200; i++) {
-            list.add(new Item(1));
+        Bundle bundle = getArguments();
+        if ((bundle != null) && bundle.containsKey("qCount")) {
+            for (int i = 0; i < bundle.getInt("qCount"); i++) {
+                list.add(new Item(1));
+            }
+        }
+        else {
+            for (int i = 0; i < 200; i++) {
+                list.add(new Item(1));
+            }
         }
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(
                 getContext(),

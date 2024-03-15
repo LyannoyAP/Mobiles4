@@ -7,14 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".MainFragment">
 
+    <TextView
+        android:id="@+id/t_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите название предмета"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.300"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.705">
@@ -32,14 +43,24 @@
             android:layout_marginLeft="100dp"
             android:text="Биология" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/t_name"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Выберите название предмета"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/t_name" >
+        <TextView
+            android:id="@+id/t_qcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выберите кол-во вопросов:" />
+        <EditText
+            android:id="@+id/e_qcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
