@@ -1,4 +1,4 @@
-package com.example.mobiles4;
+package com.example.mobiles4.UI;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,15 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mobiles4.Data.Task;
+import com.example.mobiles4.R;
+
 import java.util.List;
 
-public class ListViewAdapter extends ArrayAdapter<Item> {
+public class ListViewAdapter extends ArrayAdapter<Task> {
     private LayoutInflater inflater;
     private int layout;
-    private List<Item> items;
-    public ListViewAdapter(Context context, int resource, List<Item> items) {
-        super(context, resource, items);
-        this.items = items;
+    private List<Task> viewModelList;
+    public ListViewAdapter(Context context, int resource, List<Task> viewModelList) {
+        super(context, resource, viewModelList);
+        this.viewModelList = viewModelList;
         this.layout = resource;
         this.inflater = LayoutInflater.from(context);
     }
@@ -24,10 +27,9 @@ public class ListViewAdapter extends ArrayAdapter<Item> {
         View view = inflater.inflate(this.layout, parent, false);
         TextView textView = view.findViewById(R.id.textView);
         ImageView imageView = view.findViewById(R.id.imageView);
-        Item item = items.get(position);
-        imageView.setImageResource(item.getImage());
-        textView.setText(item.getText());
-
+        Task task = viewModelList.get(position);
+        imageView.setImageResource(task.getImage());
+        textView.setText(task.getText());
         return view;
     }
 }

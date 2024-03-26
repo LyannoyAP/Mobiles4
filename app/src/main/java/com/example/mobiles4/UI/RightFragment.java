@@ -1,20 +1,20 @@
-package com.example.mobiles4;
+package com.example.mobiles4.UI;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.mobiles4.R;
 
 public class RightFragment extends Fragment {
-
+    private int count;
     private RecyclerView recyclerView;
     public RightFragment() {
         super(R.layout.fragment_right);
@@ -24,21 +24,28 @@ public class RightFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
-        List<Item> list = new ArrayList<>();
+        TaskListViewModel list = new ViewModelProvider(getActivity()).get(TaskListViewModel.class);
         Bundle bundle = getArguments();
-        if ((bundle != null) && bundle.containsKey("qCount")) {
-            for (int i = 0; i < bundle.getInt("qCount"); i++) {
-                list.add(new Item(1));
+        if (bundle.getBoolean("CreateList")) {
+            list.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+                list.clearTaskList();
+            });
+            if (bundle.containsKey("qCount")) {
+                count = bundle.getInt("qCount");
+            } else {
+                count = 200;
+            }
+            for (int i = 0; i < count; i++) {
+                list.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+                    list.addToList(
+                            list.setRandomUserTask());
+                });
             }
         }
-        else {
-            for (int i = 0; i < 200; i++) {
-                list.add(new Item(1));
-            }
-        }
+        bundle.putBoolean("CreateList", false);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(
                 getContext(),
-                list
+                list.getUiState().getValue().getTasks()
         );
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()
                 .getApplicationContext());
